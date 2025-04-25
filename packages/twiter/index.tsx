@@ -1,0 +1,1 @@
+export default function Twitter() { return <div>Twitter clone placeholder</div>; }

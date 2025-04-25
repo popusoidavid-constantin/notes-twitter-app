@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url       ="postgresql://postgres.lorioanjlqcungjqjqqa:wlCRhcz3r9IVsIuo@aws-0-eu-central-1.pooler.supabase.com:6543/postgres?pgbouncer=true"
+  directUrl =  "postgresql://postgres.lorioanjlqcungjqjqqa:wlCRhcz3r9IVsIuo@aws-0-eu-central-1.pooler.supabase.com:5432/postgres"
+  }
+
+model User {
+  id        String   @id @default(uuid()) @db.Uuid
+  email     String   @unique
+  password  String
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  notes     Note[]
+}
+
+model Note {
+  id        String   @id @default(uuid()) @db.Uuid 
+  title     String
+  content   String
+  isPublic  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  userId    String  @db.Uuid
+  user      User     @relation(fields: [userId], references: [id])
+}
