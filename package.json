@@ -9,6 +9,8 @@
     "prisma": "^4.0.0"
   },
   "dependencies": {
-    "@prisma/client": "^4.0.0"
+    "@prisma/client": "^4.0.0",
+    "react": "latest",
+    "react-dom": "latest"
   }
 }

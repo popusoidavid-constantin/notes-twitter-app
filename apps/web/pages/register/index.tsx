@@ -2,29 +2,31 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 
 const RegisterPage = () => {
+  const router = useRouter();
   const [email, setEmail] = useState("");
+  const [role, setRole] = useState("STUDENT");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
   const [error, setError] = useState<string | null>(null);
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-      const res = await fetch("/api/register", {
+      const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password, name }),
+        body: JSON.stringify({ email, password, username, role }),
       });
 
       const data = await res.json();
 
       if (res.ok) {
         console.log("User registered:", data);
-        const router = useRouter();
-        router.push("/dashboard");
+
+        router.push("/");
       } else {
         setError(data.error || "Login failed");
       }
@@ -78,9 +80,24 @@ const RegisterPage = () => {
               name="name"
               required
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
+          </div>
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              Your Role
+            </label>
+            <select
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              value={role}
+              onChange={(e) => {
+                setRole(e.target.value);
+              }}
+            >
+              <option value="STUDENT">STUDENT</option>
+              <option value="TEACHER">TEACHER</option>
+            </select>
           </div>
           <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 focus:outline-none">
             Register
