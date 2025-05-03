@@ -115,8 +115,6 @@ importers:
 
   packages/notes: {}
 
-  packages/twiter: {}
-
   packages/twitter: {}
 
 packages:
