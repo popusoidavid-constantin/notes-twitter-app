@@ -2,20 +2,5 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/api/profile/dashboard": "pages/api/profile/dashboard.js",
-  "/api/twitter/[id]": "pages/api/twitter/[id].js",
-  "/api/twitter/dislike": "pages/api/twitter/dislike.js",
-  "/api/comments/[postId]": "pages/api/comments/[postId].js",
-  "/api/auth/logout": "pages/api/auth/logout.js",
-  "/": "pages/index.js",
-  "/api/auth/login": "pages/api/auth/login.js",
-  "/notes": "pages/notes.js",
-  "/twitter/my-posts": "pages/twitter/my-posts.js",
-  "/api/notes/public": "pages/api/notes/public.js",
-  "/notes/my-notes": "pages/notes/my-notes.js",
-  "/api/notes/private": "pages/api/notes/private.js",
-  "/twitter/[id]": "pages/twitter/[id].js",
-  "/twitter": "pages/twitter.js",
-  "/api/twitter/public": "pages/api/twitter/public.js",
-  "/api/twitter/private": "pages/api/twitter/private.js"
+  "/notes": "pages/notes.js"
 }
