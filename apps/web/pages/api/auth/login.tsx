@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient } from "@prisma/client";
-import { isValidPassword } from "../../utils/auth";
-import { createJSONToken } from "../../utils/auth";
+import { isValidPassword } from "../../../utils/auth";
+import { createJSONToken } from "../../../utils/auth";
 const prisma = new PrismaClient();
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {

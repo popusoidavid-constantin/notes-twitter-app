@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { verifyJSONToken } from "../utils/auth";
+import { verifyJSONToken } from "../../utils/auth";
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const authHeader = req.headers.authorization;

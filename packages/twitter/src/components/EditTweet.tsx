@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Loading from "@/components/ui/loading";
+import { User, Post } from "@/types/User";
 
 export function EditTweet() {
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState(null);
-  const [post, setPost] = useState(null);
+  const [user, setUser] = useState<User>();
+  const [post, setPost] = useState<Post>();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [imageFile, setImageFile] = useState(null);
@@ -31,6 +33,7 @@ export function EditTweet() {
         const data = await res.json();
 
         if (res.ok && data.post) {
+          setPost(data.post);
           setTitle(data.post.title);
           setContent(data.post.content);
           setImagePreview(data.post.imageUrl);
@@ -94,7 +97,7 @@ export function EditTweet() {
 
     const token = localStorage.getItem("token");
     const postId = router.query.id;
-    const authorId = user.id;
+    const authorId = user?.id;
 
     if (!title || !content) {
       setError("Title and content are required");
@@ -164,13 +167,13 @@ export function EditTweet() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          noteId: post.id,
+          postId: post.id,
         }),
       });
 
       alert(`Note ${post.title} deleted`);
 
-      router.push("/notes");
+      router.push("/twitter");
     } catch (err) {
       console.log("Something went wrong", err);
     }
@@ -190,7 +193,7 @@ export function EditTweet() {
   }
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <Loading />;
   }
 
   console.log(imageFile);
@@ -262,7 +265,7 @@ export function EditTweet() {
           </div>
           <div className="w-[100%] flex flex-col items-center justify-center">
             <button onClick={handleDeletePost} className="w-[20%] mt-5 bg-red-500 text-white py-2 rounded-lg hover:bg-red-600 focus:outline-none font-semibold">
-              Delete Note
+              Delete Post
             </button>
           </div>
         </form>

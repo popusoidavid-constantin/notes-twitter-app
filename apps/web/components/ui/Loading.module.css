@@ -1,0 +1,17 @@
+.spinner {
+  color: blue;
+  font-weight: bolder;
+  font-size: 100px;
+  width: 5vh;
+  height: 5vh;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

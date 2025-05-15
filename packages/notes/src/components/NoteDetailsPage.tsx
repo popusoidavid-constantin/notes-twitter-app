@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { getUserInfo } from "../../../app-main/utils/getUserInfo";
+import Loading from "@/components/ui/loading";
+import { Note, User } from "@/types/User";
 
 export function NoteDetailsPage() {
   const router = useRouter();
   const { id } = router.query;
-  const [note, setNote] = useState(null);
-  const [user, setUser] = useState(null);
-  const [token, setToken] = useState(null);
+  const [note, setNote] = useState<Note>();
+  const [user, setUser] = useState<User>();
+  const [token, setToken] = useState<string | null>(null);
   const [hasAccess, setHasAccess] = useState(false);
 
   useEffect(() => {
@@ -53,23 +55,39 @@ export function NoteDetailsPage() {
   }, [note, user]);
 
   if (!note || !user) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
-
   return (
-    <div>
-      <h2 className="text-2xl font-bold">Note Details</h2>
-      <p>Title: {note.title}</p>
-      <p>Content: {note.content}</p>
-      <p>Author: {note.author?.username || "Unknown"}</p>
+    <div className="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-lg mt-10">
+      <h2 className="text-3xl font-semibold text-blue-900 mb-6">Note Details</h2>
+
+      <div className="space-y-4">
+        <p className="text-lg font-medium text-gray-800">
+          <strong>Title:</strong> {note.title}
+        </p>
+
+        <p className="text-lg font-medium text-gray-800">
+          <strong>Content:</strong> {note.content}
+        </p>
+
+        <p className="text-lg font-medium text-gray-800">
+          <strong>Author:</strong> {note.author?.username || "Unknown"}
+        </p>
+      </div>
+
       {hasAccess && (
-        <Link href={{ pathname: `/notes/edit/${note.id}` }} className="mt-4 px-4 py-2 bg-blue-500 text-white rounded">
-          Edit
-        </Link>
+        <div className="mt-6">
+          <Link href={`/notes/edit/${note.id}`} className="inline-block px-6 py-2 bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-700 transition-colors duration-300">
+            Edit Note
+          </Link>
+        </div>
       )}
-      <button onClick={() => router.push("/notes")} className="mt-4 px-4 py-2 bg-blue-500 text-white rounded">
-        Back to Notes
-      </button>
+
+      <div className="mt-4">
+        <button onClick={() => router.push("/notes")} className="inline-block px-6 py-2 bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-700 transition-colors duration-300">
+          Back to Notes
+        </button>
+      </div>
     </div>
   );
 }

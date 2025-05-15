@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { getUserInfo } from "../../../app-main/utils/getUserInfo";
 import CommentsSection from "./CommentsSection";
+import Loading from "@/components/ui/loading";
 
 interface User {
   id: string;
@@ -129,39 +130,47 @@ export function PostDetailsPage() {
   }, [post, user]);
 
   if (!post || !user) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   return (
-    <div className="flex flex-col items-center justify-center">
-      <h2 className="text-2xl font-bold">Post Details</h2>
-      <p>Title: {post.title}</p>
-      <p>Content: {post.content}</p>
-      <p>Author: {user.username || "Unknown"}</p>
-      <p>Likes: {post.likes?.length || 0}</p>
-      <img src={post.imageUrl} alt="" className="w-[30%] h-[30%]" />
+    <div className="min-h-screen bg-[#15202B] py-10 px-4 sm:px-6 lg:px-8 text-white">
+      <h1 className="text-3xl font-bold mb-8 text-center text-white">📜 Post Details</h1>
 
-      {hasAccess && (
-        <Link href={{ pathname: `/twitter/edit/${post.id}` }} className="mt-4 px-4 py-2 bg-blue-500 text-white rounded">
-          Edit
-        </Link>
-      )}
-      <div className="w-[30%] flex flex-row items-center justify-around">
-        {hasLiked ? (
-          <button onClick={() => handleDislikePost(post.id, user.id)} className="mt-4 w-[30%] py-2 bg-red-500 text-white rounded" disabled={isLoading}>
-            {isLoading ? "Loading..." : "Dislike"}
-          </button>
-        ) : (
-          <button onClick={() => handleLikePost(post.id, user.id)} className="mt-4 w-[30%] py-2 bg-emerald-500 text-white rounded" disabled={isLoading}>
-            {isLoading ? "Loading..." : "Like"}
-          </button>
+      <div className="max-w-2xl mx-auto space-y-6 bg-[#1E2732] p-6 rounded-2xl shadow">
+        <h2 className="text-2xl font-semibold text-white mb-4">{post.title}</h2>
+        <p className="text-white mb-4">Content: {post.content}</p>
+        <p className="text-white mb-4">Author: {user.username || "Unknown"}</p>
+        <p className="text-white mb-4">Likes: {post.likes?.length || 0}</p>
+
+        {post.imageUrl && <img src={post.imageUrl} alt="Post Image" className="w-full h-[300px] object-cover rounded-lg mb-6" />}
+
+        {hasAccess && (
+          <Link href={{ pathname: `/twitter/edit/${post.id}` }} className="mt-4 px-6 py-3 bg-blue-500 text-white rounded-lg text-center block">
+            Edit Post
+          </Link>
         )}
 
-        <button onClick={() => router.push("/twitter")} className="mt-4 w-[30%] py-2 bg-blue-500 text-white rounded">
-          Back to Feed
-        </button>
+        <div className="flex justify-between mt-4">
+          {hasLiked ? (
+            <button onClick={() => handleDislikePost(post.id, user.id)} className="px-6 py-3 bg-red-500 text-white rounded-lg w-[48%]" disabled={isLoading}>
+              {isLoading ? "Loading..." : "Dislike"}
+            </button>
+          ) : (
+            <button onClick={() => handleLikePost(post.id, user.id)} className="px-6 py-3 bg-emerald-500 text-white rounded-lg w-[48%]" disabled={isLoading}>
+              {isLoading ? "Loading..." : "Like"}
+            </button>
+          )}
+
+          <button onClick={() => router.push("/twitter")} className="px-6 py-3 bg-blue-500 text-white rounded-lg w-[48%]">
+            Back to Feed
+          </button>
+        </div>
+
+        <div className="mt-6">
+          <CommentsSection postId={String(post.id)} authorId={user.id} />
+        </div>
       </div>
-      <CommentsSection postId={String(post.id)} authorId={user.id} />
     </div>
   );
 }

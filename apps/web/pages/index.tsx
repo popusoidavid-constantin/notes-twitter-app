@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { isLoggedIn } from "./utils/isLoggedIn";
+import { isLoggedIn } from "../utils/isLoggedIn";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");

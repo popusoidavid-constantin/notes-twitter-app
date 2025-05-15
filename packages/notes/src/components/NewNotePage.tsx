@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
+import { User } from "@/types/User";
 export function NewNotePage() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User>();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [error, setError] = useState("");
@@ -46,7 +47,7 @@ export function NewNotePage() {
 
       if (res.ok) {
         console.log("Note created", data);
-        router.push("/notes");
+        router.push("/notes/my-notes");
       } else {
         setError(data.error || "Login failed");
       }
@@ -57,50 +58,46 @@ export function NewNotePage() {
   };
 
   return (
-    <div>
-      <div className="flex flex-col justify-center items-center h-screen bg-gray-100 ">
-        <div className="bg-white p-8 rounded-lg  shadow-lg shadow-[#787878] w-[90%] h-[90%] mt-10">
-          <h2 className="text-2xl font-semibold text-center mb-6">New Note</h2>
-          <p className="text-red-500 text-center mb-4"></p>
-          <form className="space-y-4" onSubmit={handleCreate}>
-            <div>
-              <label htmlFor="title" className="block text-sm font-medium text-gray-700">
-                Note Title
-              </label>
-              <input
-                type="text"
-                id="title"
-                name="title"
-                required
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={title}
-                onChange={(e) => {
-                  setTitle(e.target.value);
-                }}
-              />
-            </div>
-            <div>
-              <label htmlFor="content" className="block text-sm font-medium text-gray-700">
-                Note Content
-              </label>
-              <textarea
-                id="content"
-                name="content"
-                required
-                className="mt-1  w-full text-start px-3 h-[20vh] py-2  border  border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={content}
-                onChange={(e) => {
-                  setContent(e.target.value);
-                }}
-              />
-            </div>
-            <div className=" w-[100%] flex flex-col items-center justify-center">
-              <button type="submit" className="w-[20%] bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 focus:outline-none font-semibold">
-                Create Note
-              </button>
-            </div>
-          </form>
-        </div>
+    <div className="flex justify-center items-start h-screen bg-[#15202B]">
+      <div className="bg-blue-900 p-8 rounded-xl shadow-lg w-[90%] h-[65%]">
+        <h2 className="text-3xl font-semibold text-center text-white mb-6">New Note</h2>
+        <p className="text-red-500 text-center mb-4">{error}</p>
+        <form className="space-y-6" onSubmit={handleCreate}>
+          <div>
+            <label htmlFor="title" className="block text-sm font-medium text-white">
+              Note Title
+            </label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              required
+              className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 font-bold text-white bg-blue-500"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="content" className="block text-sm font-medium text-white">
+              Note Content
+            </label>
+            <textarea
+              id="content"
+              name="content"
+              required
+              className="mt-1 w-full text-start px-4 h-[20vh] py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 font-bold text-white bg-blue-500"
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+            />
+          </div>
+
+          <div className="flex justify-center">
+            <button type="submit" className="w-[20%] bg-blue-500 text-white py-3 rounded-lg hover:bg-blue-600 focus:outline-none font-semibold transition duration-200">
+              Create Note
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );

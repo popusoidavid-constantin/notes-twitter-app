@@ -48,9 +48,9 @@ export default function MyStudentsNotes() {
     <div className="flex flex-col items-center justify-center">
       <h2 className="text-3xl font-extrabold ">My Students Notes</h2>
       <ul className="flex flex-col items-center justify-center mt-2">
-        {notes.map((note) => (
+        {notes.map((note, index) => (
           <li key={note.id} className="cursor-pointer text-blue-700 font-semibold text-center mt-5">
-            <NoteCard note={note}></NoteCard>
+            <NoteCard note={note} index={index}></NoteCard>
           </li>
         ))}
       </ul>

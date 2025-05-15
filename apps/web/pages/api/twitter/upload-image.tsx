@@ -2,8 +2,7 @@ import formidable from "formidable";
 import fs from "fs";
 import { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient } from "@prisma/client";
-import { supabaseServer } from "../../../../../packages/app-main/utils/supabaseServer";
-
+import { supabaseServer } from "@/db/supabaseServer";
 export const config = {
   api: {
     bodyParser: false,

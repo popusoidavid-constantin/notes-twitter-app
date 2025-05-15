@@ -1,18 +1,8 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-
-type Teacher = {
-  id: string;
-  username: string;
-};
-
-type Note = {
-  id: string;
-  title: string;
-  content: string;
-  isPublic: boolean;
-};
+import Loading from "@/components/ui/loading";
+import { Teacher, Note } from "@/types/User";
 
 export function EditNote() {
   const [teachers, setTeachers] = useState<Teacher[]>([]);
@@ -70,7 +60,7 @@ export function EditNote() {
   }, [id]);
 
   if (!note) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   const handleEdit = async (e) => {
@@ -116,7 +106,7 @@ export function EditNote() {
 
       alert(`Note ${note.title} deleted`);
 
-      router.push("/notes");
+      router.push("/notes/my-notes");
     } catch (err) {
       console.log("Something went wrong", err);
     }
@@ -124,10 +114,11 @@ export function EditNote() {
 
   return (
     <div>
-      <div className="flex flex-col justify-center items-center h-screen bg-gray-100 ">
-        <div className="bg-white p-8 rounded-lg shadow-lg shadow-[#787878] w-[90%] h-[90%] mt-20">
-          <h2 className="text-2xl font-semibold text-center mb-6">Edit Note</h2>
-          <form className="space-y-4" onSubmit={handleEdit}>
+      <div className="flex flex-col justify-center items-center h-screen bg-gray-100">
+        <div className="bg-white p-8 rounded-lg shadow-lg shadow-[#787878] w-[90%] md:w-[60%] lg:w-[40%] mt-20">
+          <h2 className="text-3xl font-semibold text-center mb-6 text-blue-900">Edit Note</h2>
+
+          <form className="space-y-6" onSubmit={handleEdit}>
             <div>
               <label htmlFor="title" className="block text-sm font-medium text-gray-700">
                 Note Title
@@ -137,11 +128,12 @@ export function EditNote() {
                 id="title"
                 name="title"
                 required
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
               />
             </div>
+
             <div>
               <label htmlFor="content" className="block text-sm font-medium text-gray-700">
                 Note Content
@@ -150,17 +142,19 @@ export function EditNote() {
                 id="content"
                 name="content"
                 required
-                className="mt-1 w-full text-start px-3 h-[20vh] py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                className="mt-1 w-full text-start px-4 py-3 h-[20vh] border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
               />
             </div>
+
             <div>
               <label htmlFor="isPublic" className="block text-sm font-medium text-gray-700">
                 Is Public
               </label>
               <input type="checkbox" id="isPublic" name="isPublic" className="mt-1" checked={isPublic} onChange={() => setIsPublic((prev) => !prev)} />
             </div>
+
             <div>
               <label htmlFor="teacher" className="block text-sm font-medium text-gray-700">
                 Share Note With Teacher:
@@ -168,7 +162,7 @@ export function EditNote() {
               <select
                 id="teacher"
                 name="teacher"
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                 value={teacherId}
                 onChange={(e) => setTeacherId(e.target.value)}
               >
@@ -180,14 +174,16 @@ export function EditNote() {
                 ))}
               </select>
             </div>
-            <div className="w-[100%] flex flex-col items-center justify-center">
-              <button type="submit" className="w-[20%] bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 focus:outline-none font-semibold">
+
+            <div className="flex justify-center">
+              <button type="submit" className="w-[50%] bg-blue-500 text-white py-3 rounded-lg hover:bg-blue-600 focus:outline-none font-semibold">
                 Edit Note
               </button>
             </div>
           </form>
-          <div className="w-[100%] flex flex-col items-center justify-center">
-            <button onClick={handleDeleteNote} className="w-[20%] mt-10 bg-red-500 text-white py-2 rounded-lg hover:bg-red-600 focus:outline-none font-semibold">
+
+          <div className="flex justify-center mt-6">
+            <button onClick={handleDeleteNote} className="w-[50%] bg-red-500 text-white py-3 rounded-lg hover:bg-red-600 focus:outline-none font-semibold">
               Delete Note
             </button>
           </div>

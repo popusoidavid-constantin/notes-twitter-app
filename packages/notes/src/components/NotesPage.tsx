@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { handleTokenExpiration } from "../../../app-main/utils/handleTokenExpiration";
+import NoteCard from "./NoteCard";
+import Loading from "@/components/ui/loading";
+import { User, Note } from "@/types/User";
 
 export function NotesPage() {
   const router = useRouter();
-  const [notes, setNotes] = useState(null);
-  const [user, setUser] = useState(null);
+  const [notes, setNotes] = useState<Note[] | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -77,11 +80,11 @@ export function NotesPage() {
   }, [router]);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <Loading />;
   }
 
   if (error) {
-    return <p>Error: {error}</p>;
+    return <p>No notes available</p>;
   }
 
   if (!notes || notes.length === 0) {
@@ -89,17 +92,14 @@ export function NotesPage() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center">
-      <h2 className="text-3xl font-extrabold ">NotesPage</h2>
-      <ul className="flex flex-col items-center justify-center mt-2">
-        {notes.map((n) => (
-          <li key={n.id}>
-            <div className="cursor-pointer text-blue-700 font-semibold " onClick={() => router.push(`/notes/${n.id}`)}>
-              {n.title} by {n.author.username}
-            </div>
-          </li>
+    <div className="min-h-screen bg-blue-900 py-10 px-4 sm:px-6 lg:px-8">
+      <h1 className="text-white text-3xl font-bold mb-8 text-center">📘 Public Student Notes</h1>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {notes.map((note, index) => (
+          <NoteCard note={note} index={index} />
         ))}
-      </ul>
+      </div>
     </div>
   );
 }

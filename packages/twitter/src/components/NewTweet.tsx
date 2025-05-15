@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Loading from "@/components/ui/loading";
 
 export function NewTweet() {
   const [user, setUser] = useState(null);
@@ -142,13 +143,12 @@ export function NewTweet() {
     const data = await res.json();
     console.log("Upload reqult: ", data);
   };
-
   if (authError) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <div className="bg-white p-8 rounded-lg shadow-lg">
-          <p className="text-red-500">{authError}</p>
-          <button onClick={() => router.push("/")} className="mt-4 bg-blue-500 text-white py-2 px-4 rounded-lg">
+      <div className="flex justify-center items-center h-screen bg-[#15202B]">
+        <div className="bg-[#1E2732] p-8 rounded-2xl shadow-lg w-[90%] sm:w-[60%]">
+          <p className="text-red-500 text-center font-medium">{authError}</p>
+          <button onClick={() => router.push("/")} className="mt-6 bg-blue-500 text-white py-3 px-6 rounded-lg w-full sm:w-auto hover:bg-blue-600 transition duration-200">
             Go to Login
           </button>
         </div>
@@ -157,13 +157,14 @@ export function NewTweet() {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-lg shadow-[#787878] w-[90%] h-[90%] mt-20">
-        <h2 className="text-2xl font-semibold text-center mb-6">New Post</h2>
+    <div className="flex flex-col justify-center items-center min-h-screen bg-[#15202B]">
+      <div className="bg-[#1E2732] p-8 rounded-2xl shadow-lg w-[90%] sm:w-[60%]">
+        <h2 className="text-3xl font-semibold text-center mb-6 text-white">New Post</h2>
         {error && <p className="text-red-500 text-center mb-4">{error}</p>}
-        <form className="space-y-4" onSubmit={handleCreate}>
+
+        <form className="space-y-6" onSubmit={handleCreate}>
           <div>
-            <label htmlFor="title" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="title" className="block text-sm font-medium text-white">
               Post Title
             </label>
             <input
@@ -171,35 +172,36 @@ export function NewTweet() {
               id="title"
               name="title"
               required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              className="mt-1 block w-full px-4 py-2 bg-[#263340] border border-[#444D56] text-white rounded-md focus:ring-blue-500 focus:border-blue-500"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
           </div>
+
           <div>
-            <label htmlFor="content" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="content" className="block text-sm font-medium text-white">
               Post Content
             </label>
             <textarea
               id="content"
               name="content"
               required
-              className="mt-1 w-full text-start px-3 h-[20vh] py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              className="mt-1 w-full text-start px-4 py-2 bg-[#263340] border border-[#444D56] text-white rounded-md h-[20vh] focus:ring-blue-500 focus:border-blue-500"
               value={content}
               onChange={(e) => setContent(e.target.value)}
             />
           </div>
+
           <div>
-            <label htmlFor="image" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="image" className="block text-sm font-medium text-white">
               Post Image
             </label>
-
             <input
               type="file"
               id="image"
               name="image"
               accept="image/*"
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              className="mt-1 block w-full px-4 py-2 bg-[#263340] border border-[#444D56] text-white rounded-md focus:ring-blue-500 focus:border-blue-500"
               onChange={(e) => {
                 const file = e.target.files?.[0] || null;
                 setImageFile(file);
@@ -209,15 +211,15 @@ export function NewTweet() {
               }}
             />
 
-            <div className="mt-2 text-sm text-gray-600">
+            <div className="mt-2 text-sm text-gray-400">
               {imageFile ? `Selected: ${imageFile.name}` : imagePreview ? `Current: ${decodeURIComponent(imagePreview.split("/").pop())}` : "No image selected"}
             </div>
 
-            {imagePreview && <img src={imagePreview} alt="Preview" className="w-[30%] mt-2 rounded shadow" />}
+            {imagePreview && <img src={imagePreview} alt="Preview" className="mt-4 rounded-lg shadow w-full h-[20vh] object-cover" />}
           </div>
 
           <div className="w-full flex flex-col items-center justify-center">
-            <button type="submit" className="w-[20%] bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 focus:outline-none font-semibold disabled:bg-gray-400" disabled={uploading}>
+            <button type="submit" className="w-[40%] bg-blue-500 text-white py-3 rounded-lg hover:bg-blue-600 transition duration-200 font-semibold disabled:bg-gray-400" disabled={uploading}>
               {uploading ? "Processing..." : "Create Post"}
             </button>
           </div>

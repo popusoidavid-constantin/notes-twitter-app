@@ -1,0 +1,64 @@
+
+
+> web@ build /Users/popusoidavid-constantin/Desktop/demo-monorepo/apps/web
+> next build
+
+[?25l[36minfo[39m  - Linting and checking validity of types [36m.[39m[2K[1G[36minfo[39m  - Linting and checking validity of types [36m..[39m[2K[1G[36minfo[39m  - Linting and checking validity of types [36m...[39m[2K[1G[36minfo[39m  - Linting and checking validity of types [36m.[39m[2K[1G[36minfo[39m  - Linting and checking validity of types [36m..[39m[2K[1G[36minfo[39m  - Linting and checking validity of types [36m...[39m[2K[1G[36minfo[39m  - Linting and checking validity of types [36m.[39m[2K[1G[?25h[36minfo[39m  - Linting and checking validity of types  
+[?25l[36minfo[39m  - Creating an optimized production build [36m.[39m[2K[1G[36minfo[39m  - Creating an optimized production build [36m..[39m[2K[1G[36minfo[39m  - Creating an optimized production build [36m...[39m[2K[1G[36minfo[39m  - Creating an optimized production build [36m.[39m[2K[1G[36minfo[39m  - Creating an optimized production build [36m..[39m[2K[1G[?25h[36minfo[39m  - Creating an optimized production build  
+[36minfo[39m  - Compiled successfully
+[?25l[36minfo[39m  - Collecting page data [36m.[39m[2K[1G[36minfo[39m  - Collecting page data [36m..[39m[2K[1G[?25h[36minfo[39m  - Collecting page data  
+[?25l[36m[    ][39m [36minfo[39m  - Generating static pages (0/16)[2K[1G[?25h[36minfo[39m  - Generating static pages (16/16)
+[?25l[36minfo[39m  - Finalizing page optimization [36m.[39m[2K[1G[?25h[36minfo[39m  - Finalizing page optimization  
+
+[4mRoute (pages)[24m                              [4mSize[24m     [4mFirst Load JS[24m
+┌ ○ /                                      1.16 kB        [32m77.9 kB[39m
+├   /_app                                  0 B            [32m76.8 kB[39m
+├ ○ /404                                   181 B            [32m77 kB[39m
+├ λ /api/auth/login                        0 B            [32m76.8 kB[39m
+├ λ /api/auth/logout                       0 B            [32m76.8 kB[39m
+├ λ /api/auth/register                     0 B            [32m76.8 kB[39m
+├ λ /api/comments/[postId]                 0 B            [32m76.8 kB[39m
+├ λ /api/comments/create                   0 B            [32m76.8 kB[39m
+├ λ /api/notes/[id]                        0 B            [32m76.8 kB[39m
+├ λ /api/notes/delete                      0 B            [32m76.8 kB[39m
+├ λ /api/notes/edit                        0 B            [32m76.8 kB[39m
+├ λ /api/notes/new                         0 B            [32m76.8 kB[39m
+├ λ /api/notes/private                     0 B            [32m76.8 kB[39m
+├ λ /api/notes/public                      0 B            [32m76.8 kB[39m
+├ λ /api/notes/students-shared-notes       0 B            [32m76.8 kB[39m
+├ λ /api/profile/dashboard                 0 B            [32m76.8 kB[39m
+├ λ /api/profile/get-teachers              0 B            [32m76.8 kB[39m
+├ λ /api/protected-route                   0 B            [32m76.8 kB[39m
+├ λ /api/twitter/[id]                      0 B            [32m76.8 kB[39m
+├ λ /api/twitter/delete                    0 B            [32m76.8 kB[39m
+├ λ /api/twitter/dislike                   0 B            [32m76.8 kB[39m
+├ λ /api/twitter/edit                      0 B            [32m76.8 kB[39m
+├ λ /api/twitter/like                      0 B            [32m76.8 kB[39m
+├ λ /api/twitter/new                       0 B            [32m76.8 kB[39m
+├ λ /api/twitter/private                   0 B            [32m76.8 kB[39m
+├ λ /api/twitter/public                    0 B            [32m76.8 kB[39m
+├ λ /api/twitter/upload-image              0 B            [32m76.8 kB[39m
+├ ○ /dashboard                             903 B          [32m77.7 kB[39m
+├ ○ /notes                                 1.36 kB        [32m78.1 kB[39m
+├ ○ /notes/[id]                            1 kB           [32m77.8 kB[39m
+├ ○ /notes/edit/[id]                       1.48 kB        [32m78.3 kB[39m
+├ ○ /notes/my-notes                        973 B          [32m77.8 kB[39m
+├ ○ /notes/new                             1.19 kB          [32m78 kB[39m
+├ ○ /notes/students-notes                  954 B          [32m77.7 kB[39m
+├ ○ /register                              1.06 kB        [32m77.8 kB[39m
+├ ○ /twitter                               4.12 kB        [32m80.9 kB[39m
+├ ○ /twitter/[id]                          1.91 kB        [32m78.7 kB[39m
+├ ○ /twitter/edit/[id]                     2.05 kB        [32m78.8 kB[39m
+├ ○ /twitter/my-posts                      877 B          [32m77.7 kB[39m
+└ ○ /twitter/new                           1.9 kB         [32m78.7 kB[39m
++ First Load JS shared by all              [32m81.2 kB[39m
+  ├ chunks/framework-007d4b1a1fe85ed4.js   45.4 kB
+  ├ chunks/main-d88e3550e8d80ed4.js        27.1 kB
+  ├ chunks/pages/_app-a12c1dc2c4f05db0.js  3.54 kB
+  ├ chunks/webpack-8fa1640cc84ba8fe.js     750 B
+  └ css/32ce3e53bd82d9f2.css               4.42 kB
+
+λ  (Server)  server-side renders at runtime (uses [36mgetInitialProps[39m or [36mgetServerSideProps[39m)
+○  (Static)  automatically rendered as static HTML (uses no initial props)
+
+[?25h

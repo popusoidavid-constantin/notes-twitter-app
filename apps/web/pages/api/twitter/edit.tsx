@@ -9,8 +9,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     const { title, content, authorId, imageUrl, postId } = req.body;
-    if (!title || !content || !authorId || !imageUrl) {
-      return res.status(400).json({ error: "All fields including image are required." });
+    if (!title || !content || !authorId) {
+      return res.status(400).json({ error: "All fields are required." });
     }
 
     const user = await prisma.user.findUnique({
